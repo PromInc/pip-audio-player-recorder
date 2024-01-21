@@ -52,6 +52,39 @@ Audio Player &amp; Recorder (Live Stream)
 
 
 
+
+## Configuration Options
+
+| Option Name | Required | Default Value | Description |
+| ----------- | -------- | ------------- | ----------- |
+| `audioId` | No | `pip-audio-player` | ID of the player `<audio>` element |
+| `type` | No | `audio/mpeg` | Audio format |
+| `preload` | No | `preload` | |
+| `autoTrigger` | No | `false` | |
+| `triggerLabel` | No | `'Start Audio'` | |
+| `autoPlay` | No | `false` | |
+| `playerTimeDisplay` | No | `false` | |
+| `hideStop` | No | `false` | |
+| `hideVolume` | No | `false` | |
+| `hideMute` | No | `false` | |
+| `allowReload` | No | `false` | |
+| `showSeekBar` | No | `true` | |
+| `skipAmountPadding` | No | `.5` | |
+| `skipAmountBack` | No | `5` | |
+| `skipAmountForward` | No | `5` | |
+| `streamInfoUrl` | No | `false` | |
+| `visualizerShow` | No | `false` | |
+| `visualizerHeight` | No | `60` | |
+| `enableRecorder` | No | `false` | |
+| `recordedFileUploadUrl` | No | `false` | |
+| `recordedFileExtension` | No | `false` | |
+| `recorderNamingCallback` | No | `false` | |
+
+
+
+
+
+
 ## TODO's
 - Example of PHP audio upload script
 - Example of `recorderNamingCallback`
