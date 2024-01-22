@@ -57,17 +57,17 @@ Audio Player &amp; Recorder (Live Stream)
 
 | Option Name | Required | Default Value | Description |
 | ----------- | -------- | ------------- | ----------- |
-| `audioId` | No | `pip-audio-player` | ID of the player `<audio>` element |
-| `type` | No | `audio/mpeg` | Audio format |
-| `preload` | No | `preload` | |
-| `autoTrigger` | No | `false` | |
-| `triggerLabel` | No | `'Start Audio'` | |
-| `autoPlay` | No | `false` | |
-| `playerTimeDisplay` | No | `false` | |
-| `hideStop` | No | `false` | |
-| `hideVolume` | No | `false` | |
-| `hideMute` | No | `false` | |
-| `allowReload` | No | `false` | |
+| `audioId` | No | `pip-audio-player` | ID of the player `<audio>` element. |
+| `type` | No | `audio/mpeg` | Audio format. |
+| `preload` | No | `preload` | Set the `preload` attribute on the `<audio>` element. |
+| `autoTrigger` | No | `false` | Auto-click the play button.  Note: if `true` with `autoPlay` = `true` browsers may not autoplay out of respect to users. |
+| `triggerLabel` | No | `'Start Audio'` | Text on the button to trigger the player. |
+| `autoPlay` | No | `false` | Will the audio auto-play? |
+| `playerTimeDisplay` | No | `false` | Show time or date/time formatted times.  Options: `false`, `timestamp`, `datetime` |
+| `hideStop` | No | `false` | Hide the Stop button. |
+| `hideVolume` | No | `false` | Hide the volume slider. |
+| `hideMute` | No | `false` | Hide the mute button. |
+| `allowReload` | No | `false` | Show the Reload button to restart the player. |
 | `showSeekBar` | No | `true` | |
 | `skipAmountPadding` | No | `.5` | |
 | `skipAmountBack` | No | `5` | |
