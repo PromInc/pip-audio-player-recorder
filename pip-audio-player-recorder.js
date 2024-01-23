@@ -1,4 +1,4 @@
-/* prp-audio-player-recorder v1.0.0 */
+/* prp-audio-player-recorder v1.0.1 */
 /*
 Notes:
 - The DVR (or DAR) is based on the KVSC live stream
@@ -996,6 +996,11 @@ function pipAudioPlayerLoad( options = {} ) {
 		var clipBlob = capturedAudioBlobs[clipId];
 
 		window.sendAudioFileToServerId = clipId;
+
+		// clear any existing success indicators
+		if( document.getElementById(clipId).querySelector('button.upload i.fa-check') ) {
+			document.getElementById(clipId).querySelector('button.upload i.fa-check').remove();
+		}
 
 		// get audio stream
 		const reader = new FileReader();
