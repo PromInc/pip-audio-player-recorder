@@ -89,3 +89,13 @@ Audio Player &amp; Recorder (Live Stream)
 - Example of PHP audio upload script
 - Example of `recorderNamingCallback`
 - Table of configuration options
+
+
+
+---
+# Changelog
+## v1.0.1 (2024-01-23)
+- Bug Fix: clicking the upload button more than once would result in multiple success checkmarks
+## v1.0.0 (2024-01-21)
+- Initial commit with live stream audio player, recorder, station info, and visualizer
+
