@@ -55,31 +55,31 @@ Audio Player &amp; Recorder (Live Stream)
 
 ## Configuration Options
 
-| Option Name | Required | Default Value | Description |
-| ----------- | -------- | ------------- | ----------- |
-| `audioId` | No | `pip-audio-player` | ID of the player `<audio>` element. |
-| `type` | No | `audio/mpeg` | Audio format. |
-| `preload` | No | `preload` | Set the `preload` attribute on the `<audio>` element. |
-| `autoTrigger` | No | `false` | Auto-click the play button.  Note: if `true` with `autoPlay` = `true` browsers may not autoplay out of respect to users. |
-| `triggerLabel` | No | `'Start Audio'` | Text on the button to trigger the player. |
-| `autoPlay` | No | `false` | Will the audio auto-play? |
-| `playerTimeDisplay` | No | `false` | Show time or date/time formatted times.  Options: `false`, `timestamp`, `datetime` |
-| `playerTimeLocale` | No | `en-us` | Locale to display date and timestamp in |
-| `hideStop` | No | `false` | Hide the Stop button. |
-| `hideVolume` | No | `false` | Hide the volume slider. |
-| `hideMute` | No | `false` | Hide the mute button. |
-| `allowReload` | No | `false` | Show the Reload button to restart the player. |
-| `showSeekBar` | No | `true` | |
-| `skipAmountPadding` | No | `.5` | |
-| `skipAmountBack` | No | `5` | |
-| `skipAmountForward` | No | `5` | |
-| `streamInfoUrl` | No | `false` | |
-| `visualizerShow` | No | `false` | |
-| `visualizerHeight` | No | `60` | |
-| `enableRecorder` | No | `false` | |
-| `recordedFileUploadUrl` | No | `false` | |
-| `recordedFileExtension` | No | `false` | |
-| `recorderNamingCallback` | No | `false` | |
+| Option Name | Required | Default Value | Description | Version |
+| ----------- | -------- | ------------- | ----------- | ----------- |
+| `audioId` | No | `pip-audio-player` | ID of the player `<audio>` element. | 1.0.0 |
+| `type` | No | `audio/mpeg` | Audio format. | 1.0.0 |
+| `preload` | No | `preload` | Set the `preload` attribute on the `<audio>` element. | 1.0.0 |
+| `autoTrigger` | No | `false` | Auto-click the play button.  Note: if `true` with `autoPlay` = `true` browsers may not autoplay out of respect to users. | 1.0.0 |
+| `triggerLabel` | No | `'Start Audio'` | Text on the button to trigger the player. | 1.0.0 |
+| `autoPlay` | No | `false` | Will the audio auto-play? | 1.0.0 |
+| `playerTimeDisplay` | No | `false` | Show time or date/time formatted times.  Options: `false`, `timestamp`, `datetime` | 1.0.0 |
+| `playerTimeLocale` | No | `en-us` | Locale to display date and timestamp in | 1.0.2 |
+| `hideStop` | No | `false` | Hide the Stop button. | 1.0.0 |
+| `hideVolume` | No | `false` | Hide the volume slider. | 1.0.0 |
+| `hideMute` | No | `false` | Hide the mute button. | 1.0.0 |
+| `allowReload` | No | `false` | Show the Reload button to restart the player. | 1.0.0 |
+| `showSeekBar` | No | `true` | | 1.0.0 |
+| `skipAmountPadding` | No | `.5` | | 1.0.0 |
+| `skipAmountBack` | No | `5` | | 1.0.0 |
+| `skipAmountForward` | No | `5` | | 1.0.0 |
+| `streamInfoUrl` | No | `false` | | 1.0.0 |
+| `visualizerShow` | No | `false` | | 1.0.0 |
+| `visualizerHeight` | No | `60` | | 1.0.0 |
+| `enableRecorder` | No | `false` | | 1.0.0 |
+| `recordedFileUploadUrl` | No | `false` | | 1.0.0 |
+| `recordedFileExtension` | No | `false` | | 1.0.0 |
+| `recorderNamingCallback` | No | `false` | | 1.0.0 |
 
 
 
