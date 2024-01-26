@@ -64,6 +64,7 @@ Audio Player &amp; Recorder (Live Stream)
 | `triggerLabel` | No | `'Start Audio'` | Text on the button to trigger the player. |
 | `autoPlay` | No | `false` | Will the audio auto-play? |
 | `playerTimeDisplay` | No | `false` | Show time or date/time formatted times.  Options: `false`, `timestamp`, `datetime` |
+| `playerTimeLocale` | No | `en-us` | Locale to display date and timestamp in |
 | `hideStop` | No | `false` | Hide the Stop button. |
 | `hideVolume` | No | `false` | Hide the volume slider. |
 | `hideMute` | No | `false` | Hide the mute button. |
