@@ -1,4 +1,4 @@
-/* prp-audio-player-recorder v1.0.1 */
+/* pip-audio-player-recorder v1.0.2 */
 /*
 Notes:
 - The DVR (or DAR) is based on the KVSC live stream
@@ -14,13 +14,12 @@ Notes:
 // TODO: add keyboard shortcuts
 
 // TODO: if recording and the player stop button is pressed, stop the recording as well.
-// TODO: display the reocording duration while recording a clip
-// TODO: show clock time on recorded clips
-// TODO: show running time with hours
 
 // TODO: [future feature] cache the response from the now_playing stream info and sync it up with timestamps so that it can change as you go back in time
 
 // TODO: can I get the play bar indicator to not jump so much?  Look at how it's being updateed?  Add some animation logic somehow?
+
+// TODO: BUG enabling the visualizer results in inability to record clips (throws error after clip is recorded)
 
 
 function pipAudioPlayerLoad( options = {} ) {
@@ -32,6 +31,7 @@ function pipAudioPlayerLoad( options = {} ) {
 		triggerLabel: 'Start Audio',
 		autoPlay: false,
 		playerTimeDisplay: false,
+		playerTimeLocale: 'en-us',
 		hideStop: false,
 		hideVolume: false,
 		hideMute: false,
@@ -163,7 +163,6 @@ function pipAudioPlayerLoad( options = {} ) {
 		var elemPlayerTimeCurrent = document.createElement("span");
 		elemPlayerTimeCurrent.classList.add("time");
 		elemPlayerTimeCurrent.classList.add("time-current");
-		// elemPlayerTimeWrapper.appendChild(elemPlayerTimeCurrent);
 		elemPlayerTimeContainerOverall.appendChild(elemPlayerTimeCurrent);
 
 		var elemPlayerTimeCurrentLabel = document.createElement("span");
@@ -412,7 +411,7 @@ function pipAudioPlayerLoad( options = {} ) {
 		elemBtnRecordStop.classList.add('record-stop');
 		elemBtnRecordStop.classList.add('hide');
 		elemBtnRecordStop.title = "Stop recording subclip";
-		elemBtnRecordStop.innerHTML = '<i class="fa fa-circle-thin" aria-hidden="true"></i>';
+		elemBtnRecordStop.innerHTML = '<i class="fa fa-circle-thin" aria-hidden="true"></i><span class="duration"></span>';
 		elemBtnContainer.appendChild(elemBtnRecordStop);
 
 		elemBtnRecordStop.addEventListener("click", () => {
@@ -448,7 +447,6 @@ function pipAudioPlayerLoad( options = {} ) {
 
 			elemSeekRange.addEventListener('input', () => {
 				elemAudio.currentTime = elemSeekRange.value;
-				// elemSeekCurrent.textContent = calculateDuration( elemSeekRange.value );
 				elemSeekCurrent.textContent = mediaDuration;
 			});
 		}
@@ -671,10 +669,12 @@ function pipAudioPlayerLoad( options = {} ) {
 			return;
 		}
 
+		const hours = Math.floor( secs / ( 60 * 60 ) );
 		const minutes = Math.floor( secs / 60 );
 		const seconds = Math.floor( secs % 60 );
+		const returnedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
 		const returnedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
-		return `${minutes}:${returnedSeconds}`;
+		return ( hours > 0 ? hours + ':' : '' ) + returnedMinutes + ':' + returnedSeconds;
 	}
 
 	function calculateTime( secs ) {
@@ -687,12 +687,16 @@ function pipAudioPlayerLoad( options = {} ) {
 		}
 
 		let epochCalculated = ( playStartEpoch * 1000 ) + ( secs * 1000 );
-		let dateObj = new Date( epochCalculated );
+		return getTimeStringFromEpoch( epochCalculated );
+	}
+
+	function getTimeStringFromEpoch( epoch ) {
+		let dateObj = new Date( epoch );
 		if( playerOptions.playerTimeDisplay == 'timestamp' ) {
 			return dateObj.toLocaleTimeString()			
 		} else if( playerOptions.playerTimeDisplay == 'datetime' ) {
-			return dateObj.toLocaleDateString('en-us', { year:"numeric", month:"short", day:"numeric"}) + '<br/>' + dateObj.toLocaleTimeString()
-		}
+			return dateObj.toLocaleDateString(playerOptions.playerTimeLocale, { year:"numeric", month:"short", day:"numeric"}) + '<br/>' + dateObj.toLocaleTimeString()
+		}		
 	}
 
 	function getStreamInfo() {
@@ -816,6 +820,13 @@ function pipAudioPlayerLoad( options = {} ) {
 			playerStart();
 		}
 
+		// recording duration
+		var recordingDuration = 0;
+		captureRecordingDuration = setInterval(function() {
+			recordingDuration += 1;
+			document.querySelector('.record-stop .duration').innerText = ' '+recordingDuration;
+		}, 1000);
+
 		mediaRecorderChunks = [];
 		mediaRecorder.start();
 		elemBtnRecordStart.classList.add('hide');
@@ -824,10 +835,17 @@ function pipAudioPlayerLoad( options = {} ) {
 		elemBtnRecordStop.style.background = buttonColorActive;
 
 		mediaRecorder.ondataavailable = function (e) {
-		  mediaRecorderChunks.push(e.data);
+			mediaRecorderChunks.push(e.data);
 		};
 
 		mediaRecorder.onstop = function (e) {
+			// recording duration clear
+			clearInterval( captureRecordingDuration );
+			var recordingEpochEnd = Math.floor( Date.now());
+			var recordingEpochStart = recordingEpochEnd - ( recordingDuration * 1000 );
+
+			document.querySelector('.record-stop .duration').innerText = '';
+
 			var defaultClipName;
 
 			if( playerOptions.recorderNamingCallback ) {
@@ -866,11 +884,14 @@ function pipAudioPlayerLoad( options = {} ) {
 			recordedClipContainer.dataset.clipName = clipName;
 			recordedClipContainer.dataset.clipFormat = clipFormat;
 
+
 			// collected the recorded audio into an audio element
 			const recordedAudioElemWrapper = document.createElement("div");
 			recordedAudioElemWrapper.classList.add('clip-wrapper');
 			const recordedAudioElem = document.createElement("audio");
 			recordedAudioElem.setAttribute("controls", "");
+			const recordedAudioElemInfo = document.createElement("div");
+			recordedAudioElemInfo.classList.add('clip-info');
 
 			recordedAudioElem.controls = true;
 			const mediaRecorderBlob = new Blob(mediaRecorderChunks, { type: mediaRecorder.mimeType });
@@ -906,6 +927,7 @@ function pipAudioPlayerLoad( options = {} ) {
 			recordedClipDeleteButton.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
 
 			const recordedClipLabel = document.createElement("span");
+			recordedClipLabel.classList.add('clip-name');
 			if (clipName === null) {
 				recordedClipLabel.textContent = "Recorded Clip";
 			} else {
@@ -942,6 +964,24 @@ function pipAudioPlayerLoad( options = {} ) {
 				}
 			};
 
+			const recordedClipInfoStart = document.createElement("span");
+			recordedClipInfoStart.classList.add('clip-time-start');
+			recordedClipInfoStart.classList.add('time');
+			recordedClipInfoStart.innerHTML = '<span class="label">Start:</span>' + getTimeStringFromEpoch( recordingEpochStart );
+			recordedAudioElemInfo.appendChild(recordedClipInfoStart);
+
+			const recordedClipInfoEnd = document.createElement("span");
+			recordedClipInfoEnd.classList.add('clip-time-end');
+			recordedClipInfoEnd.classList.add('time');
+			recordedClipInfoEnd.innerHTML = '<span class="label">End:</span>' + getTimeStringFromEpoch( recordingEpochEnd );
+			recordedAudioElemInfo.appendChild(recordedClipInfoEnd);
+
+			const recordedClipInfoDuration = document.createElement("span");
+			recordedClipInfoDuration.classList.add('clip-time-end');
+			recordedClipInfoDuration.classList.add('time');
+			recordedClipInfoDuration.innerHTML = '<span class="label">Seconds:</span>' + recordingDuration;
+			recordedAudioElemInfo.appendChild(recordedClipInfoDuration);
+
 			recordedClipDeleteButton.onclick = function (e) {
 				var clipId = e.target.closest("article.clip").id;
 				delete capturedAudioBlobs[clipId];
@@ -950,13 +990,14 @@ function pipAudioPlayerLoad( options = {} ) {
 
 			// add recorded clip to list of recordings
 			recordedClipContainer.appendChild(recordedAudioElemWrapper);
+			recordedClipContainer.appendChild(recordedAudioElemInfo);
 			recordedAudioElemWrapper.appendChild(recordedAudioElem);
-			recordedClipContainer.appendChild(recordedClipLabel);
-			recordedClipContainer.appendChild(recordedClipLabelEditButton);
-			recordedClipContainer.appendChild(recordedClipDownloadButton);
-			recordedClipContainer.appendChild(recordedClipDeleteButton);
+			recordedAudioElemWrapper.appendChild(recordedClipLabel);
+			recordedAudioElemWrapper.appendChild(recordedClipLabelEditButton);
+			recordedAudioElemWrapper.appendChild(recordedClipDownloadButton);
+			recordedAudioElemWrapper.appendChild(recordedClipDeleteButton);
 			if( playerOptions.recordedFileUploadUrl ) {
-				recordedClipContainer.appendChild(recordedClipUploadButton);
+				recordedAudioElemWrapper.appendChild(recordedClipUploadButton);
 			}
 			recordedClipsWrapper.appendChild(recordedClipContainer);
 

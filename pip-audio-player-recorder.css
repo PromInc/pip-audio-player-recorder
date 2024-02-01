@@ -1,4 +1,4 @@
-/* prp-audio-player-recorder v1.0.1 */
+/* pip-audio-player-recorder v1.0.2 */
 .lds-ellipsis {
   display: inline-block;
   position: relative;
@@ -84,50 +84,7 @@
 	font-weight: bold;
 	
 }
-/*
-#audio-player-container {
-	--seek-before-width: 0%;
-	--volume-before-width: 100%;
-	--buffered-width: 0%;
-	position: relative;
-	margin: 100px 2.5% auto 2.5%;
-	width: 95%;
-	max-width: 500px;
-	height: 132px;
-	background: #fff;
-}
-#audio-player-container::before {
-	position: absolute;
-	content: '';
-	width: calc(100% + 4px);
-	height: calc(100% + 4px);
-	left: -2px;
-	top: -2px;
-	background: linear-gradient(to left, #007db5, #ff8a00);
-	z-index: -1;
-}
-*/
-/*
-.pip-audio-player-container p {
-	position: absolute;
-	top: -18px;
-	right: 5%;
-	padding: 0 5px;
-	margin: 0;
-	font-size: 28px;
-	background: #fff;
-}
-*/
-/*
-#play-icon {
-	margin: 20px 2.5% 10px 2.5%;
-}
-*/
-/*
-.pip-audio-player-container path {
-	stroke: #007db5;
-}
-*/
+
 
 .pip-audio-player-container {
 	margin-bottom: 2em;
@@ -143,7 +100,6 @@
 .pip-audio-player-container.center,
 .pip-audio-player-container .center
 {
-    /* display: grid; */
 	text-align: center;
     align-items: center;
 	justify-content: center;
@@ -179,7 +135,6 @@
 .pip-audio-player-time .time.time-start,
 .pip-audio-player-time .time.time-end
 {
-    /* width: 46%; */
 	width: 33%;
 }
 
@@ -293,8 +248,6 @@
 	background: #007db5;
 }
 
-
-
 .pip-audio-player-container section.recorded-clips-wrapper article.clip {
     padding-top: 1.5em;
     margin-top: 1.5em;
@@ -303,19 +256,28 @@
     border-top: 3px solid #efefef;
 }
 
-
 .pip-audio-player-container .pip-audio-player-buttons .record-stop {
 	background-color: red;
 }
-
-
+.pip-audio-player-container .pip-audio-player-buttons .record-stop .duration {
+	line-height: 0;
+}
 
 .pip-audio-player-container .recorded-clips-wrapper .clip {
 	margin-bottom: 1em;
+	border-top: 1px solid #efefef;
 }
 
 .pip-audio-player-container .recorded-clips-wrapper .clip .clip-wrapper {
 	display: inline-block;
-    vertical-align: middle;
 	margin-right: 1.5em;
+}
+.pip-audio-player-container .recorded-clips-wrapper .clip .clip-wrapper > * {
+    vertical-align: middle;
+}
+.pip-audio-player-container .recorded-clips-wrapper .clip-wrapper .clip-name {
+	padding: 0 1em;
+}
+.pip-audio-player-container .recorded-clips-wrapper .clip-info .time .label {
+	padding: 0 0.3em;
 }
