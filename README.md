@@ -69,21 +69,17 @@ Audio Player &amp; Recorder (Live Stream)
 | `hideVolume` | No | `false` | Hide the volume slider. | 1.0.0 |
 | `hideMute` | No | `false` | Hide the mute button. | 1.0.0 |
 | `allowReload` | No | `false` | Show the Reload button to restart the player. | 1.0.0 |
-| `showSeekBar` | No | `true` | | 1.0.0 |
-| `skipAmountPadding` | No | `.5` | | 1.0.0 |
-| `skipAmountBack` | No | `5` | | 1.0.0 |
-| `skipAmountForward` | No | `5` | | 1.0.0 |
-| `streamInfoUrl` | No | `false` | | 1.0.0 |
-| `visualizerShow` | No | `false` | | 1.0.0 |
-| `visualizerHeight` | No | `60` | | 1.0.0 |
-| `enableRecorder` | No | `false` | | 1.0.0 |
-| `recordedFileUploadUrl` | No | `false` | | 1.0.0 |
-| `recordedFileExtension` | No | `false` | | 1.0.0 |
-| `recorderNamingCallback` | No | `false` | | 1.0.0 |
-
-
-
-
+| `showSeekBar` | No | `true` | Should the seek bar (time history) be displayed? | 1.0.0 |
+| `skipAmountPadding` | No | `.5` | In Seconds.  A buffer amount in time to be subtracted when skipping to ensure that the stream continues to play. | 1.0.0 |
+| `skipAmountBack` | No | `5` | In Seconds.  What time interval to jump backwards in time. | 1.0.0 |
+| `skipAmountForward` | No | `5` | In Seconds.  What time interval to jump forwards in time. | 1.0.0 |
+| `streamInfoUrl` | No | `false` | If the live stream provides a URL that will display stream information (ie. dj, station name, etc.), set it here to have that data fetched.  Providing a value will turn this feature on. | 1.0.0 |
+| `visualizerShow` | No | `false` | Should the visualizer (realtime audio waveform) display? | 1.0.0 |
+| `visualizerHeight` | No | `60` | Height in pixels for the visualizer. | 1.0.0 |
+| `enableRecorder` | No | `false` | Enable recoding functionality.  Clips are recorded locally in memory and can be downloaded to the machine hard drive. | 1.0.0 |
+| `recordedFileUploadUrl` | No | `false` | If set, and upload to server button is enabled.  This value is the URL that the audio stream file should be sent to. | 1.0.0 |
+| `recordedFileExtension` | No | `false` | File extension that recorded clips will have.  If not set, the default clip format will be used, typically `weba`.  Do not include a leading period (`.`). | 1.0.0 |
+| `recorderNamingCallback` | No | `false` | The default naming of a recorded clip is the date/time stamp.  The name can be altered, but there may be situations where custom logic is needed to generate a default name.  Use this setting to name a function to call to generate a default recorded clip name. | 1.0.0 |
 
 
 ## TODO's
