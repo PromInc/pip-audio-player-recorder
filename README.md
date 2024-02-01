@@ -81,12 +81,56 @@ Audio Player &amp; Recorder (Live Stream)
 | `recordedFileExtension` | No | `false` | File extension that recorded clips will have.  If not set, the default clip format will be used, typically `weba`.  Do not include a leading period (`.`). | 1.0.0 |
 | `recorderNamingCallback` | No | `false` | The default naming of a recorded clip is the date/time stamp.  The name can be altered, but there may be situations where custom logic is needed to generate a default name.  Use this setting to name a function to call to generate a default recorded clip name. | 1.0.0 |
 
+## Code Examples
+Some example code clips to help extend the default functionality.
 
-## TODO's
-- Example of PHP audio upload script
-- Example of `recorderNamingCallback`
-- Table of configuration options
+### Recorded Clip Naming Callback
+When recording clips, the default naming convention is recording end date/time.  That may not be the desired naming convention.  A custom Javaascript function declared before calling `pipAudioPlayerLoad( { ... } );`.  This function name needs to be set to the `recorderNamingCallback` argument.
 
+```
+function customDefaultRecordedClipName() {
+  let time = new Date();
+  return window.location.pathname + '-' + time.getFullYear() + '-' + ( time.getMonth() + 1 ) + '-' + time.getDate();
+}
+```
+
+### Upload File Endpoint (PHP)
+To upload recorded clips to a server, save this code to a PHP file on the server.  The path to this file would be set to the `recordedFileUploadUrl` argument.
+
+```
+<?php
+$SUCCESS = 'success';
+$ERROR = 'error';
+
+$saveDir = 'audio/';
+
+if( isset( $_POST["audioBase64"] ) && !empty( $_POST["audioBase64"] ) ) {
+	$audioBase64 = $_POST["audioBase64"];
+} else {
+	echo $ERROR;
+	return;
+}
+
+if( isset( $_POST["clipName"] ) && !empty( $_POST["clipName"] ) ) {
+	$clipName = $_POST["clipName"];
+} else {
+	$clipName = time();
+}
+
+if( isset( $_POST["clipFormat"] ) && !empty( $_POST["clipFormat"] ) ) {
+	$clipExt = $_POST["clipFormat"];
+} else {
+	$clipExt = 'weba';
+}
+
+$saveFilePath = $saveDir . $clipName . '.' . $clipExt;
+
+if( file_put_contents( $saveFilePath, base64_decode( $audioBase64 ) ) ) {
+	echo $SUCCESS;
+} else {
+	echo $ERROR;
+}
+```
 
 
 ---
