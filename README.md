@@ -7,6 +7,12 @@ Audio Player &amp; Recorder (Live Stream)
   - Download recorded subclips
   - Upload recorded subclips to a remote server
 
+![pip-audio-recorder-screenshot-1](https://github.com/PromInc/pip-audio-player-recorder/assets/7319505/766d9ddc-2e76-4569-bf4b-f4a19cf28899)
+
+![pip-audio-recorder-screenshot-2](https://github.com/PromInc/pip-audio-player-recorder/assets/7319505/26d90b5b-a9e9-4da4-8b40-d2cfd9e9b326)
+
+
+
 ## Usage
 - Load the CSS file in the `<head>` of the page
 - Load the JS file in the `<head>` of the page
