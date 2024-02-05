@@ -11,8 +11,6 @@ Audio Player &amp; Recorder (Live Stream)
 
 ![pip-audio-recorder-screenshot-2](https://github.com/PromInc/pip-audio-player-recorder/assets/7319505/26d90b5b-a9e9-4da4-8b40-d2cfd9e9b326)
 
-
-
 ## Usage
 - Load the CSS file in the `<head>` of the page
 - Load the JS file in the `<head>` of the page
@@ -20,13 +18,10 @@ Audio Player &amp; Recorder (Live Stream)
 - Define the configuration
 - Load the player
 
-
-
-
-
 ```
 <head>
   <link type="text/css" rel="stylesheet" href="css/pip-audio-player.css">
+  <link rel="stylesheet" href="font-pip-audio-player-recorder-1.0/style.css">
   <script type="text/javascript" src="js/pip-audio-player.js"></script>
 </head>
 
@@ -56,9 +51,6 @@ Audio Player &amp; Recorder (Live Stream)
 </body>
 ```
 
-
-
-
 ## Configuration Options
 
 | Option Name | Required | Default Value | Description | Version |
@@ -86,6 +78,13 @@ Audio Player &amp; Recorder (Live Stream)
 | `recordedFileUploadUrl` | No | `false` | If set, and upload to server button is enabled.  This value is the URL that the audio stream file should be sent to. | 1.0.0 |
 | `recordedFileExtension` | No | `false` | File extension that recorded clips will have.  If not set, the default clip format will be used, typically `weba`.  Do not include a leading period (`.`). | 1.0.0 |
 | `recorderNamingCallback` | No | `false` | The default naming of a recorded clip is the date/time stamp.  The name can be altered, but there may be situations where custom logic is needed to generate a default name.  Use this setting to name a function to call to generate a default recorded clip name. | 1.0.0 |
+
+## Icongraphy
+The player button icons are part of the FontAwesome icon font.  The icons have been in the FontAwesome set for a long time - tested on version 4.0 and working.
+
+If your site already includes the FontAwesome library then the supplied icons are not required and this can be safely excluded:
+- `<link rel="stylesheet" href="font-pip-audio-player-recorder-1.0/style.css">`
+- Directory of `font-pip-audio-player-recorder-1.0/`
 
 ## Code Examples
 Some example code clips to help extend the default functionality.
