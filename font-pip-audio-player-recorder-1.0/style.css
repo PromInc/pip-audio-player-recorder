@@ -1,0 +1,71 @@
+@font-face {
+  font-family: 'pip-auido-player-recorder';
+  src:
+    url('fonts/pip-auido-player-recorder.ttf?usl7t5') format('truetype'),
+    url('fonts/pip-auido-player-recorder.woff?usl7t5') format('woff'),
+    url('fonts/pip-auido-player-recorder.svg?usl7t5#pip-auido-player-recorder') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="fa-"], [class*=" fa-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'pip-auido-player-recorder' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.fa-check:before {
+  content: "\f00c";
+}
+.fa-download:before {
+  content: "\f019";
+}
+.fa-refresh:before {
+  content: "\f021";
+}
+.fa-volume-off:before {
+  content: "\f026";
+}
+.fa-pencil:before {
+  content: "\f040";
+}
+.fa-step-backward:before {
+  content: "\f048";
+}
+.fa-play:before {
+  content: "\f04b";
+}
+.fa-pause:before {
+  content: "\f04c";
+}
+.fa-stop:before {
+  content: "\f04d";
+}
+.fa-fast-forward:before {
+  content: "\f050";
+}
+.fa-step-forward:before {
+  content: "\f051";
+}
+.fa-upload:before {
+  content: "\f093";
+}
+.fa-circle:before {
+  content: "\f111";
+}
+.fa-circle-thin:before {
+  content: "\f1db";
+}
+.fa-trash:before {
+  content: "\f1f8";
+}
