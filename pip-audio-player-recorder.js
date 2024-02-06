@@ -1,4 +1,4 @@
-/* pip-audio-player-recorder v1.0.2 */
+/* pip-audio-player-recorder v1.0.3 */
 /*
 Notes:
 - The DVR (or DAR) is based on the KVSC live stream
@@ -9,15 +9,13 @@ Notes:
 - Could still develop an in/out method to subclip from our hourly audio to capture things like audio trivia
 */
 
-// TODO: can I make this universal to detect if it's a stream vs file (ie. has end durration or not) and then accomodate accordingly  (should but need to test)
-
 // TODO: add keyboard shortcuts
 
 // TODO: if recording and the player stop button is pressed, stop the recording as well.
 
 // TODO: [future feature] cache the response from the now_playing stream info and sync it up with timestamps so that it can change as you go back in time
 
-// TODO: can I get the play bar indicator to not jump so much?  Look at how it's being updateed?  Add some animation logic somehow?
+// TODO: can I get the play bar indicator to not jump so much for livestream?  Look at how it's being updateed?  Add some animation logic somehow?
 
 // TODO: BUG enabling the visualizer results in inability to record clips (throws error after clip is recorded)
 
@@ -222,9 +220,12 @@ function pipAudioPlayerLoad( options = {} ) {
 		if( playerOptions.preload ) {
 			elemAudio.preload = playerOptions.preload;
 		}
-		if( playerOptions.enableRecorder ) {
-			// TODO: only do this if the playerOptions.source comes from a different origin as this player
-			elemAudio.crossOrigin = 'anonymous';
+
+		if( playerOptions.source.startsWith('https://') || playerOptions.source.startsWith('http://') ) {
+			let audioSourceUrl = new URL( playerOptions.source );
+			if( window.location.origin != audioSourceUrl.origin ) {
+				elemAudio.crossOrigin = 'anonymous';
+			}
 		}
 		elemAudio.src = playerOptions.source;
 		elemAudio.type = playerOptions.type;
@@ -356,7 +357,6 @@ function pipAudioPlayerLoad( options = {} ) {
 				const value = e.target.value;
 				volumeState = value;
 
-				// outputContainer.textContent = value;
 				elemAudio.volume = value / 100;
 			});
 		}
@@ -451,6 +451,12 @@ function pipAudioPlayerLoad( options = {} ) {
 			});
 		}
 
+		if( !isStream ) {
+			mediaDuration = elemAudio.duration;
+			setSliderMax();
+			elemSeekDuration.textContent = calculateDuration( mediaDuration );
+		}
+
 		createButtonsPlayer();
 
 		if( playerOptions.autoPlay ) {
@@ -463,7 +469,9 @@ function pipAudioPlayerLoad( options = {} ) {
 
 		elemAudio.addEventListener('play', (activeAudioElem) => {
 			playStartEpoch = (Date.now() / 1000);
-			elemPlayerTimeStartDisplay.innerHTML = calculateTime( 0 );
+			if( playerOptions.playerTimeDisplay ) {
+				elemPlayerTimeStartDisplay.innerHTML = calculateTime( 0 );
+			}
 
 			if( playerOptions.enableRecorder ) {
 				// create stream object for recording
@@ -510,11 +518,15 @@ function pipAudioPlayerLoad( options = {} ) {
 	}
 
 	function getIsPlaying( player ) {
-		let atStart = ( player.currentTime == 0 ? true : false );
-		if( ( atStart && player.paused ) || ( player.ended && player.readyState == 0 ) ) {
-			return false
+		if( isStream ) {
+			let atStart = ( player.currentTime == 0 ? true : false );
+			if( ( atStart && player.paused ) || ( player.ended && player.readyState == 0 ) ) {
+				return false
+			}
+			return true
+		} else {
+			return !player.paused;
 		}
-		return true
 	}
 
 	function playerStart() {
@@ -574,7 +586,9 @@ function pipAudioPlayerLoad( options = {} ) {
 		setAudioDuration();
 		displayCurrentTime();
 		displayDuration();
-		elemPlayerTimeStartDisplay.innerHTML = calculateTime( playStartEpoch );
+		if( playerOptions.playerTimeDisplay ) {
+			elemPlayerTimeStartDisplay.innerHTML = calculateTime( playStartEpoch );
+		}
 		setSliderMax();
 
 		clearInterval(streamInfoFetchInterval);
@@ -612,7 +626,13 @@ function pipAudioPlayerLoad( options = {} ) {
 			setSliderMax();
 		}
 
-		elemPlayerTimeCurrentDisplay.innerHTML = calculateTime( elemSeekRange.value );
+		if( playerOptions.playerTimeDisplay ) {
+			elemPlayerTimeCurrentDisplay.innerHTML = calculateTime( elemSeekRange.value );
+		}
+
+		if( !isStream && elemAudio.currentTime >= elemAudio.duration ) {
+			stopPlayer();
+		}
 	}
 
 	function setAudioDuration() {
@@ -645,7 +665,9 @@ function pipAudioPlayerLoad( options = {} ) {
 		}
 
 		elemSeekDuration.textContent = calculateDuration( mediaDuration );
-		elemPlayerTimeEndDisplay.innerHTML = calculateTime( mediaDuration );
+		if( playerOptions.playerTimeDisplay ) {
+			elemPlayerTimeEndDisplay.innerHTML = calculateTime( mediaDuration );
+		}
 	}
 
 	function displayCurrentTime() {

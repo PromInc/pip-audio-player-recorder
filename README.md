@@ -140,6 +140,11 @@ if( file_put_contents( $saveFilePath, base64_decode( $audioBase64 ) ) ) {
 
 ---
 # Changelog
+## v1.0.3 (2024-02-06)
+- Enhancement: support for audio files
+- Bug Fix: cross origin for non-stream files
+## v1.0.2 (2024-02-01)
+- Enhancement: Added player option for playerTimeLocale
 ## v1.0.1 (2024-01-23)
 - Bug Fix: clicking the upload button more than once would result in multiple success checkmarks
 ## v1.0.0 (2024-01-21)
