@@ -11,6 +11,9 @@ Audio Player &amp; Recorder (Live Stream)
 
 ![pip-audio-recorder-screenshot-2](https://github.com/PromInc/pip-audio-player-recorder/assets/7319505/26d90b5b-a9e9-4da4-8b40-d2cfd9e9b326)
 
+## Live Demo
+A live demo of this audio file and live stream audio player can be found at [PromInc Productions](https://promincproductions.com/blog/code/pip-audio-player-recorder/)
+
 ## Usage
 - Load the CSS file in the `<head>` of the page
 - Load the JS file in the `<head>` of the page
@@ -50,9 +53,6 @@ Audio Player &amp; Recorder (Live Stream)
   </script>
 </body>
 ```
-
-## Live Demo
-A live demo of this audio file and live stream audio player can be found at [PromInc Productions](https://promincproductions.com/blog/code/pip-audio-player-recorder/).
 
 ## Configuration Options
 
