@@ -51,6 +51,9 @@ Audio Player &amp; Recorder (Live Stream)
 </body>
 ```
 
+## Live Demo
+A live demo of this audio file and live stream audio player can be found at [PromInc Productions](https://promincproductions.com/blog/code/pip-audio-player-recorder/).
+
 ## Configuration Options
 
 | Option Name | Required | Default Value | Description | Version |
@@ -88,6 +91,26 @@ If your site already includes the FontAwesome library then the supplied icons ar
 
 ## Code Examples
 Some example code clips to help extend the default functionality.
+
+### Audio File Player
+While this player works great with live streams, it's also an audio file player as well for pre-recorded audio.
+
+```
+<script type="text/javascript">
+var options = {
+	element: '#pip-dar-demo-2',
+	source: 'a-great-song.mp3',
+	audioId: 'audio-file',
+	autoPlay: true,
+	triggerLabel: 'Play Audio File',
+	skipAmountForward: 5,
+	skipAmountBack: 5,
+	allowReload: false,
+	hideStop: false,
+};
+pipAudioPlayerLoad( options );
+</script>
+```
 
 ### Recorded Clip Naming Callback
 When recording clips, the default naming convention is recording end date/time.  That may not be the desired naming convention.  A custom Javaascript function declared before calling `pipAudioPlayerLoad( { ... } );`.  This function name needs to be set to the `recorderNamingCallback` argument.
