@@ -101,7 +101,7 @@ var options = {
 	element: '#pip-dar-demo-2',
 	source: 'a-great-song.mp3',
 	audioId: 'audio-file',
-	autoPlay: true,
+	autoTrigger: true,
 	triggerLabel: 'Play Audio File',
 	skipAmountForward: 5,
 	skipAmountBack: 5,
